@@ -14,10 +14,15 @@ defmodule UserPreferencesWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", UserPreferencesWeb do
-    pipe_through :browser
+  scope "/" do
+    pipe_through :api
 
-    get "/", PageController, :index
+    forward "/api", Absinthe.Plug,
+      schema: UserPreferencesWeb.Schema
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: UserPreferencesWeb.Schema,
+      interface: :simple
   end
 
   # Other scopes may use custom stacks.

@@ -16,7 +16,11 @@ defmodule UserPreferencesWeb.Schema do
     end
   end
 
-  mutation
+  mutation do
+    field :create_user, type: :user do
+      arg
+    end
+  end
 
   object :user do
     field :id, :id

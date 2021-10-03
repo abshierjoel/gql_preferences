@@ -1,4 +1,4 @@
-defmodule UserPreferences.Preferences do
+defmodule UserPreferences.Preference do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -11,8 +11,8 @@ defmodule UserPreferences.Preferences do
   end
 
   @doc false
-  def changeset(preferences, attrs) do
-    preferences
+  def changeset(preference, attrs) do
+    preference
     |> cast(attrs, [:likes_emails, :likes_phone_calls])
     |> validate_required([:likes_emails, :likes_phone_calls])
   end
