@@ -4,6 +4,7 @@ defmodule UserPreferences.Application do
   @moduledoc false
 
   use Application
+  alias ActivityServer
 
   @impl true
   def start(_type, _args) do
@@ -15,9 +16,10 @@ defmodule UserPreferences.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: UserPreferences.PubSub},
       # Start the Endpoint (http/https)
-      UserPreferencesWeb.Endpoint
+      UserPreferencesWeb.Endpoint,
       # Start a worker by calling: UserPreferences.Worker.start_link(arg)
       # {UserPreferences.Worker, arg}
+      ActivityServer
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

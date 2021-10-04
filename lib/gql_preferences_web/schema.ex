@@ -5,32 +5,15 @@ defmodule UserPreferencesWeb.Schema do
 
   alias UserPreferencesWeb.Resolvers
 
-  connection(node_type: :user)
-
-  node interface do
-    resolve_type(fn
-      %UserPreferences.User{}, _ ->
-        :user
-
-      _, _ ->
-        nil
-    end)
-  end
-
   query do
-    node field do
-      resolve(fn
-        %{type: :user, id: local_id}, _ ->
-          {:ok, UserPreferences.Repo.get(UserPreferences.User, local_id)}
-
-        _, _ ->
-          {:error, "Unknown node"} |> IO.inspect()
-      end)
-    end
-
     field :user, :user do
       arg(:id, non_null(:id))
       resolve(&Resolvers.Users.get_user_by_id/3)
+    end
+
+    field :resolver_hits, :integer do
+      arg(:key, non_null(:string))
+      resolve(&Resolvers.Activity.get_activity/3)
     end
 
     connection field :users, node_type: :user do
@@ -41,6 +24,16 @@ defmodule UserPreferencesWeb.Schema do
       arg(:likes_emails, :boolean)
       arg(:likes_phone_calls, :boolean)
       resolve(&Resolvers.Users.get_all_users/3)
+    end
+
+    node field do
+      resolve(fn
+        %{type: :user, id: local_id}, _ ->
+          {:ok, UserPreferences.Repo.get(UserPreferences.User, local_id)}
+
+        _, _ ->
+          {:error, "Unknown node"} |> IO.inspect()
+      end)
     end
   end
 
@@ -67,6 +60,18 @@ defmodule UserPreferencesWeb.Schema do
     end
   end
 
+  connection(node_type: :user)
+
+  node interface do
+    resolve_type(fn
+      %UserPreferences.User{}, _ ->
+        :user
+
+      _, _ ->
+        nil
+    end)
+  end
+
   node object(:user) do
     field :id, :id
     field :name, :string
@@ -82,6 +87,11 @@ defmodule UserPreferencesWeb.Schema do
     field :user_id, :id
     field :likes_emails, :boolean
     field :likes_phone_calls, :boolean
+  end
+
+  node object(:resolver_hits) do
+    field :key, :string
+    field :hits, :integer
   end
 
   input_object :preferences_input do
