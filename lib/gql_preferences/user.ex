@@ -5,7 +5,7 @@ defmodule UserPreferences.User do
   schema "users" do
     field :email, :string
     field :name, :string
-    has_one :preference, UserPreferences.Preference
+    has_one :preferences, UserPreferences.Preferences
 
     timestamps()
   end
