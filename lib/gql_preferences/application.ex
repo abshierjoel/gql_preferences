@@ -4,6 +4,7 @@ defmodule UserPreferences.Application do
   @moduledoc false
 
   use Application
+  import Supervisor.Spec
   alias ActivityServer
 
   @impl true
@@ -19,7 +20,8 @@ defmodule UserPreferences.Application do
       UserPreferencesWeb.Endpoint,
       # Start a worker by calling: UserPreferences.Worker.start_link(arg)
       # {UserPreferences.Worker, arg}
-      ActivityServer
+      ActivityServer,
+      {Absinthe.Subscription, UserPreferencesWeb.Endpoint}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

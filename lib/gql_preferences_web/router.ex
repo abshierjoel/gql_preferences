@@ -17,11 +17,11 @@ defmodule UserPreferencesWeb.Router do
   scope "/" do
     pipe_through :api
 
-    forward "/api", Absinthe.Plug,
-      schema: UserPreferencesWeb.Schema
+    forward "/api", Absinthe.Plug, schema: UserPreferencesWeb.Schema
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       schema: UserPreferencesWeb.Schema,
+      socket: UserPreferencesWeb.UserSocket,
       interface: :simple
   end
 
