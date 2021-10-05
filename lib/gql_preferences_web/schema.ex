@@ -62,9 +62,15 @@ defmodule UserPreferencesWeb.Schema do
 
   subscription do
     field :created_user, :user do
-      config(fn args, info ->
-        IO.inspect(args, label: "ARGS")
-        IO.inspect(info, label: "INFO")
+      config(fn _args, _info ->
+        {:ok, topic: "*"}
+      end)
+    end
+
+    field :updated_user_preferences, :preferences do
+      arg(:user_id, non_null(:id))
+
+      config(fn _args, _ ->
         {:ok, topic: "*"}
       end)
     end

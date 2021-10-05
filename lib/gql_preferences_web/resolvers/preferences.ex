@@ -18,8 +18,15 @@ defmodule UserPreferencesWeb.Resolvers.Preferences do
   def update_preferences_by_id(_, args, _) do
     ActivityMonitor.update_resolver_activity("update_preferences_by_id")
 
-    Repo.get_by(Preferences, user_id: args.user_id)
-    |> Preferences.changeset(args)
-    |> Repo.update()
+    {:ok, prefs} =
+      Repo.get_by(Preferences, user_id: args.user_id)
+      |> Preferences.changeset(args)
+      |> Repo.update()
+
+    Absinthe.Subscription.publish(UserPreferencesWeb.Endpoint, prefs,
+      updated_user_preferences: "*"
+    )
+
+    {:ok, prefs}
   end
 end
