@@ -25,6 +25,8 @@ defmodule UserPreferencesWeb.Resolvers.Users do
       |> User.changeset(args)
       |> Repo.insert()
 
+    Absinthe.Subscription.publish(UserPreferencesWeb.Endpoint, user, created_user: "*")
+
     {:ok, pref} =
       args.preferences
       |> Map.put(:user_id, user.id)

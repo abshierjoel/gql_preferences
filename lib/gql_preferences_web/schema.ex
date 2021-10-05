@@ -60,6 +60,16 @@ defmodule UserPreferencesWeb.Schema do
     end
   end
 
+  subscription do
+    field :created_user, :user do
+      config(fn args, info ->
+        IO.inspect(args, label: "ARGS")
+        IO.inspect(info, label: "INFO")
+        {:ok, topic: "*"}
+      end)
+    end
+  end
+
   connection(node_type: :user)
 
   node interface do
