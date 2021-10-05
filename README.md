@@ -1,5 +1,15 @@
 # UserPreferences
 
+## Database
+
+You can start a docker container for the database with the following command.
+
+```
+docker run --name some-postgres -e POSTGRES_PASSWORD=notpostgres POSTGRES_USER=postgres POSTGRES_DB=gql_preferences_dev -p 5432:5432 -d postgres
+```
+
+## GraphiQL
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
