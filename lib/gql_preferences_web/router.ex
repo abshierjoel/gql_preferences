@@ -22,9 +22,7 @@ defmodule UserPreferencesWeb.Router do
       socket: UserPreferencesWeb.UserSocket,
       interface: :simple
 
-    # forward "/", Absinthe.Plug.GraphiQL,
-    #   schema: UserPreferencesWeb.Schema,
-    #   socket: UserPreferencesWeb.UserSocket
+    forward "/", Absinthe.Plug, schema: UserPreferencesWeb.Schema
   end
 
   # Other scopes may use custom stacks.
