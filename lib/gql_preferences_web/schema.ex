@@ -32,7 +32,7 @@ defmodule UserPreferencesWeb.Schema do
           {:ok, UserPreferences.Repo.get(UserPreferences.User, local_id)}
 
         _, _ ->
-          {:error, "Unknown node"} |> IO.inspect()
+          {:error, "Unknown node"}
       end)
     end
   end

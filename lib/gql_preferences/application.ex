@@ -4,7 +4,6 @@ defmodule UserPreferences.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
   alias ActivityServer
 
   @impl true

@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :gql_preferences, UserPreferences.Repo,
   username: "postgres",
-  password: "notpostgres",
+  password: "postgres",
   database: "gql_preferences_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
