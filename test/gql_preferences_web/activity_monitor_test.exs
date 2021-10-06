@@ -1,4 +1,4 @@
-defmodule UserPreferences.ActivityMonitorTest do
+defmodule UserPreferencesTest.ActivityMonitorTest do
   use ExUnit.Case, async: true
   alias UserPreferencesWeb.Schema
 

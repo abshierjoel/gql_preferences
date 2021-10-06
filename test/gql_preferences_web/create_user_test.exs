@@ -1,31 +1,39 @@
-defmodule UserPreferences.ActivityMonitorTest do
+defmodule UserPreferencesTest.CreateUserTest do
   use ExUnit.Case, async: true
   alias UserPreferencesWeb.Schema
 
-  @get_resolver_hits """
-    query getResolverHits($key: String){
-      resolverHits(key: $key)
-    }
   """
 
-  describe "@resolverHits" do
-    test "returns the count for a resolver" do
-      key = "get_all_users"
+  @create_user """
+  mutation createUser(
+    $name: String,
+    $email: String,
+    $likesEmails: Boolean,
+    $likesPhoneCalls: Boolean
+  ) {
+    createUser(
+      name: $name,
+      email: $email,
+      preferences: {
+        likesEmails: $likesEmails,
+        likesPhoneCalls: $likesPhoneCalls
+        }
+    ) {
+      id
+      name
+      email
+      preferences {
+        likesEmails
+        likesPhoneCalls
+      }
+    }
+  }
+  """
 
-      assert {:ok, %{data: %{"resolverHits" => count}}} =
-               Absinthe.run(@get_resolver_hits, Schema, variables: %{"key" => key})
+  setup do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(UserPreferences.Repo)
+  end
 
-      assert count === 0
-    end
-
-    test "returns" do
-      key = "not_a_key"
-
-      assert {:ok, %{data: %{"resolverHits" => count}, errors: errors}} =
-               Absinthe.run(@get_resolver_hits, Schema, variables: %{"key" => key})
-
-      assert is_nil(count) === true
-      assert List.first(errors).message === "Requested key: #{key} is invalid"
-    end
+  describe "@createUser" do
   end
 end
