@@ -37,6 +37,7 @@ defmodule UserPreferences.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0"},
       {:absinthe_relay, "~> 1.5"},
+      {:cors_plug, "~> 2.0"},
       {:phoenix, "~> 1.6.0"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
