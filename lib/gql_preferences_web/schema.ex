@@ -7,7 +7,7 @@ defmodule UserPreferencesWeb.Schema do
 
   query do
     field :user, :user do
-      arg(:id, non_null(:id))
+      arg(:id, :id)
       resolve(&Resolvers.Users.get_user_by_id/3)
     end
 
@@ -89,7 +89,7 @@ defmodule UserPreferencesWeb.Schema do
   end
 
   node object(:user) do
-    field :id, :id
+    field :id, non_null(:id)
     field :name, :string
     field :email, :string
 
