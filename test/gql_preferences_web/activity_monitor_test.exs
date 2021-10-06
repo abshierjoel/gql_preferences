@@ -22,10 +22,10 @@ defmodule UserPreferences.ActivityMonitorTest do
       key = "not_a_key"
 
       assert {:ok, %{data: %{"resolverHits" => count}, errors: errors}} =
-               Absinthe.run(@get_resolver_hits, Schema, variables: %{"key" => "not_a_key"})
+               Absinthe.run(@get_resolver_hits, Schema, variables: %{"key" => key})
 
       assert is_nil(count) === true
-      assert List.first(errors).message === "Requested key: not_a_key is invalid"
+      assert List.first(errors).message === "Requested key: #{key} is invalid"
     end
   end
 end
